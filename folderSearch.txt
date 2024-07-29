@@ -1,0 +1,97 @@
+library("stringr")
+library("rlist")
+############Folders
+#folders <- list.dirs("C:/Users/User/Downloads/2015-10-27-apache-jena-v2-11-0/153849-v1.0.0/src/jena-iri/src/main/java/org/apache/jena/iri/impl/")
+folders <- list.dirs("C:/Users/User/Downloads/calculator-main/calculator-main/")
+
+j <- 1
+while(j<=length(folders))
+{
+	folders[j] <- paste(folders[j],"/") 
+folders[j] <- str_replace_all(folders[j], " ", "")
+j <- j+1
+}
+####################
+allFiles <- c()
+i <- 1
+while(i<=length(folders)){
+
+###change .cs to .java or other types you want to find
+dosyalar <- list.files(path=folders[i], pattern="\\.cs", all.files=FALSE,
+    full.names=TRUE)
+uzunluk <- length(dosyalar)
+
+k <- 1
+while(k <= length(dosyalar)){
+allFiles <- append(allFiles, dosyalar[k])
+k <- k+1
+}
+
+i <- i+1
+}
+################################
+dosyalar <- allFiles
+uzunluk <- length(dosyalar)
+#################################
+##########2. part save read files to txt#################
+library("tm")
+k <- 1
+while(k<=length(dosyalar))
+{
+yazi <- read.delim(dosyalar[k])
+write.table(yazi, file = paste0("C:/Users/User/Desktop/Deneme/code",k, ".txt"), sep = "\t",row.names = FALSE,quote = FALSE)
+k <- k+1
+}
+######################3. part (merge txt files)
+k <- 1
+ultimate <- c("")
+while(k<=uzunluk)
+{
+
+rl <- readLines(paste0("C:/Users/User/Desktop/Deneme/code",k, ".txt"))
+ultimate <- append(ultimate,rl)
+k <- k+1
+} 
+############################################
+##################Find // comment lines
+commentGeneral <- c("")
+rl <- ultimate
+##soldaki girintiyi tok etmek için kullanılır
+trim.leading <- function (x)  sub("^\\s+", "", x)
+###11.03.2024 tarihinde "rl" ile ultimate yer degistirildi
+rl <- trim.leading(ultimate)
+commentGeneral <- rl[grep('^//*', rl)]
+
+##################Find /* comment block
+res <- str_match(rl, "blockC\\s*(.*?)\\s*")
+###This code part find code comment block indexes
+dimension <- dim(res)
+lengthS <- dimension[1]
+i <- 1
+blockList <- c()
+while(i<=lengthS)
+{
+	if(is.na(res[i,1]))
+	y <- 1
+	else
+	blockList <- list.append(blockList,i)
+	i <- i+1
+}
+print(blockList)
+lengthS2 <- length(blockList)
+lengthS2 <- blockList[lengthS2]-blockList[1]
+lengthS2 <- lengthS2+1
+i<- 1
+j <- blockList[1]
+while(i<=lengthS2)
+{
+	print(rl[j])
+	commentGeneral <- append(commentGeneral,rl[j])
+	j <- j+1
+	i <- i+1
+}
+####write comments to txt
+write.table(commentGeneral, file = "C:/Users/User/Desktop/Deneme/commentGeneral.txt", sep = "\t",row.names = FALSE,quote = FALSE)
+
+
+
