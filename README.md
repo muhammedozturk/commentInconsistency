@@ -1,5 +1,5 @@
 # commentInconsistency
-(https://github.com/muhammedozturk/commentInconsistency/blob/main/cizim.pdf)
+[mainImage](https://github.com/muhammedozturk/commentInconsistency/blob/main/cizim-1.png)
 
 This repository includes R codes devised for code comment inconsistency detection.
 
