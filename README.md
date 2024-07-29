@@ -1,4 +1,6 @@
 # commentInconsistency
+![alt text](https://github.com/muhammedozturk/commentInconsistency/blob/main/cizim.pdf)?raw=true)
+
 This repository includes R codes devised for code comment inconsistency detection.
 
 First you should install following packages in R
