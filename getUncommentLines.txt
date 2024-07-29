@@ -1,0 +1,18 @@
+######################get uncomment lines
+k <- 1
+ultimate <- c("")
+while(k<=2)
+{
+
+rl <- readLines(paste0("C:/Users/User/Desktop/Deneme/code",k, ".txt"))
+ultimate <- append(ultimate,rl)
+k <- k+1
+} 
+############################################
+##################Find // comment lines
+uncomment <- c("")
+rl <- ultimate
+trim.leading <- function (x)  sub("^\\s+", "", x)
+rl <- trim.leading(ultimate)
+uncomment <- rl[!grepl('^//*', rl)]
+write.table(uncomment, file = "C:/Users/User/Desktop/Deneme/uncommentGeneral.txt", sep = "\t",row.names = FALSE,quote = FALSE)
