@@ -10,3 +10,5 @@ library("tm")
 
 After that, if you do not want to spend time in dividing sources into comment and codes, you may use the .txt files in this repository.
 findSimilarity.R presents you to train code and comment files and learn inconsistency. 
+
+folderSearch.R is a script finds comments and codes of any programmig language, just replace ".cs" with ".java" or ".py" to find others. Default is C#.
